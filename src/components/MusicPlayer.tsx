@@ -12,6 +12,7 @@ const MusicPlayer: React.FC = () => {
   // State for current track and emotion
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [currentEmotion, setCurrentEmotion] = useState<Emotion>('neutral');
+  const [lastEmotionChangeTime, setLastEmotionChangeTime] = useState<number>(0);
   
   // State for webcam activation
   const [isWebcamActive, setIsWebcamActive] = useState(true);
@@ -38,11 +39,15 @@ const MusicPlayer: React.FC = () => {
   
   // Handle emotion detection results
   const handleEmotionDetected = (result: EmotionDetectionResult) => {
+    const now = Date.now();
+    const emotionChangeThreshold = 3000; // 3 seconds between emotion changes
+    
     // Apply smoothing to prevent rapid emotion switching
     const smoothedEmotion = smoothEmotionTransition(result);
     
-    if (smoothedEmotion !== currentEmotion) {
+    if (smoothedEmotion !== currentEmotion && (now - lastEmotionChangeTime) > emotionChangeThreshold) {
       setCurrentEmotion(smoothedEmotion);
+      setLastEmotionChangeTime(now);
       
       // Change track when emotion changes
       const newTrack = getRandomTrackForEmotion(smoothedEmotion);
