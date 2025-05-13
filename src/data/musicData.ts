@@ -121,10 +121,28 @@ const defaultTracks: Record<Emotion, Track[]> = {
   neutral: [
     {
       id: "neutral-1",
-      title: "Balanced",
-      artist: "Steady Flow",
+      title: "Winning Speech",
+      artist: "Karan Aujla",
       emotion: "neutral",
-      path: "/music/neutral/balanced.mp3",
+      path: "/music/neutral/Winning Speech - Karan Aujla.mp3",
+      cover:
+        "https://i.scdn.co/image/ab67616d0000b273bb0a8916e30754d2e08f28bb",
+    },
+    {
+      id: "neutral-2",
+      title: "ANTIDOTE",
+      artist: "Karan Aujla",
+      emotion: "neutral",
+      path: "/music/neutral/ANTIDOTE - Karan Aujla.mp3",
+      cover:
+        "https://images.pexels.com/photos/1231230/pexels-photo-1231230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    },
+    {
+      id: "neutral-3",
+      title: "Wavy",
+      artist: "Karan Aujla",
+      emotion: "neutral",
+      path: "/music/neutral/Wavy - Karan Aujla.mp3",
       cover:
         "https://images.pexels.com/photos/1231230/pexels-photo-1231230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
