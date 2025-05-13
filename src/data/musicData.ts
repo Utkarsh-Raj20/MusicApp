@@ -6,87 +6,87 @@ const defaultTracks: Record<Emotion, Track[]> = {
     {
       id: "happy-1",
       title: "Dil Dhadakne Do",
-      artist: "Pritam",
+      artist: "Suraj Jagan",
       emotion: "happy",
       path: "/music/happy/Dil Dhadakne Do.mp3",
       cover:
-        "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://c.saavncdn.com/240/Dil-Dhadakne-Do-Hindi-2015-500x500.jpg",
     },
     {
       id: "happy-2",
       title: "Mera Mann Kehne Laga",
-      artist: "Pritam",
+      artist: "Falak Shabbir",
       emotion: "happy",
       path: "/music/happy/Mera Mann Kehne Laga.mp3",
       cover:
-        "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00001e02785c415336347fca03a1d638",
     },
     {
       id: "happy-3",
       title: "Kabhi Kabhi Aditi",
-      artist: "Pritam",
+      artist: "Rashid Ali",
       emotion: "happy",
       path: "/music/happy/Kabhi Kabhi Aditi.mp3",
       cover:
-        "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00001e02abf91851997179d195afab5f",
     },
   ],
   sad: [
     {
       id: "sad-1",
-      title: "Maan Jao",
-      artist: "Pritam",
+      title: "Finding Her",
+      artist: "Kushagra",
       emotion: "sad",
-      path: "/music/sad/Maan Jao.mp3",
+      path: "/music/sad/Finding Her.mp3",
       cover:
-        "https://images.pexels.com/photos/561463/pexels-photo-561463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d0000485183141000ee8ce3b893a0b425",
     },
     {
       id: "sad-2",
       title: "Maand",
-      artist: "Pritam",
+      artist: "Bayaan",
       emotion: "sad",
       path: "/music/sad/Maand.mp3",
       cover:
-        "https://images.pexels.com/photos/561463/pexels-photo-561463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00001e02050a86ad4ac35aedb9b41d89",
     },
     {
       id: "sad-3",
       title: "Jhol",
-      artist: "Pritam",
+      artist: "Mannu",
       emotion: "sad",
       path: "/music/sad/Jhol.mp3",
       cover:
-        "https://images.pexels.com/photos/561463/pexels-photo-561463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d000048516f276fe6c6093449347cc11d",
     },
   ],
   angry: [
     {
       id: "angry-1",
       title: "Jee Karda",
-      artist: "Pritam",
+      artist: "Sachin jigar",
       emotion: "angry",
       path: "/music/angry/Jee Karda.mp3",
       cover:
-        "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d000048514c74beed966d2f38aa298c57",
     },
     {
       id: "angry-2",
       title: "Brothers Anthem",
-      artist: "Pritam",
+      artist: "Ajay-Atul",
       emotion: "angry",
       path: "/music/angry/Brothers Anthem.mp3",
       cover:
-        "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00004851b62efc8fa0cbf9bdd3331e49",
     },
     {
       id: "angry-3",
       title: "Saadda Haq",
-      artist: "Pritam",
+      artist: "Mohit Chauhan",
       emotion: "angry",
       path: "/music/angry/Saadda Haq.mp3",
       cover:
-        "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d0000485154e544672baa16145d67612b",
     },
   ],
   surprised: [
@@ -97,7 +97,7 @@ const defaultTracks: Record<Emotion, Track[]> = {
       emotion: "surprised",
       path: "/music/surprised/Blinding Lights.mp3",
       cover:
-        "https://images.pexels.com/photos/3807743/pexels-photo-3807743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d000048518863bc11d2aa12b54f5aeb36",
     },
     {
       id: "surprised-2",
@@ -106,7 +106,7 @@ const defaultTracks: Record<Emotion, Track[]> = {
       emotion: "surprised",
       path: "/music/surprised/One Dance.mp3",
       cover:
-        "https://images.pexels.com/photos/3807743/pexels-photo-3807743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d0000485172d0af2341359a90710c1fdc",
     },
     {
       id: "surprised-3",
@@ -115,7 +115,7 @@ const defaultTracks: Record<Emotion, Track[]> = {
       emotion: "surprised",
       path: "/music/surprised/Counting Stars.mp3",
       cover:
-        "https://images.pexels.com/photos/3807743/pexels-photo-3807743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d000048519e2f95ae77cf436017ada9cb",
     },
   ],
   neutral: [
@@ -135,7 +135,7 @@ const defaultTracks: Record<Emotion, Track[]> = {
       emotion: "neutral",
       path: "/music/neutral/ANTIDOTE - Karan Aujla.mp3",
       cover:
-        "https://images.pexels.com/photos/1231230/pexels-photo-1231230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00004851f9d66911f25fcb4b3b7d5cd3",
     },
     {
       id: "neutral-3",
@@ -144,7 +144,7 @@ const defaultTracks: Record<Emotion, Track[]> = {
       emotion: "neutral",
       path: "/music/neutral/Wavy - Karan Aujla.mp3",
       cover:
-        "https://images.pexels.com/photos/1231230/pexels-photo-1231230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://i.scdn.co/image/ab67616d00004851e34f05599c4a42e1cbb1c251",
     },
   ],
 };

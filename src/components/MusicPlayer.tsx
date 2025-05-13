@@ -57,7 +57,7 @@ const MusicPlayer: React.FC = () => {
       if (audioRef.current) {
         audioRef.current.play()
           .then(() => {
-            setPlaybackState(prev => ({ ...prev, isPlaying: true }));
+            setPlaybackState(prev => ({ ...prev, isPlaying: false }));
           })
           .catch(error => {
             console.error('Playback error:', error);
