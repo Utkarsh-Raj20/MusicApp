@@ -19,6 +19,7 @@ const EmotionDetector: React.FC<EmotionDetectorProps> = ({
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const [permissionError, setPermissionError] = useState<string | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
+  const detectionActiveRef = useRef(false);
 
   // Load face-api.js models
   useEffect(() => {
@@ -90,9 +91,9 @@ const EmotionDetector: React.FC<EmotionDetectorProps> = ({
       return;
     }
 
-    // If camera is inactive, just maintain the last emotion without detection
+    // If camera is inactive, stop detection
     if (!isActive) {
-      onEmotionDetected({ emotion: lastEmotion, confidence: 1 });
+      detectionActiveRef.current = false;
       return;
     }
 
@@ -126,6 +127,11 @@ const EmotionDetector: React.FC<EmotionDetectorProps> = ({
     };
 
     const detectEmotions = async () => {
+      // Stop if detection is no longer active
+      if (!detectionActiveRef.current) {
+        return;
+      }
+
       if (video.readyState === 4) {
         // 4 = HAVE_ENOUGH_DATA
         // Get video dimensions
@@ -151,8 +157,13 @@ const EmotionDetector: React.FC<EmotionDetectorProps> = ({
             const primaryFace = detections[0];
             const result = expressionToEmotion(primaryFace.expressions);
 
-            // Pass the detected emotion to parent component
-            onEmotionDetected(result);
+            // Only report if confidence is high enough
+            if (result.confidence > 0.5) {
+              // Stop detection after reporting
+              detectionActiveRef.current = false;
+              onEmotionDetected(result);
+              return;
+            }
 
             // Draw the face detection results on canvas
             faceapi.draw.drawDetections(canvas, detections);
@@ -160,17 +171,21 @@ const EmotionDetector: React.FC<EmotionDetectorProps> = ({
         }
       }
 
-      // Continue detection loop
-      animationFrameId = requestAnimationFrame(detectEmotions);
+      // Continue detection loop only if still active
+      if (detectionActiveRef.current) {
+        animationFrameId = requestAnimationFrame(detectEmotions);
+      }
     };
 
     // Start the detection loop
     video.onplay = () => {
+      detectionActiveRef.current = true;
       detectEmotions();
     };
 
     // Clean up function
     return () => {
+      detectionActiveRef.current = false;
       cancelAnimationFrame(animationFrameId);
     };
   }, [isModelLoaded, isActive, permissionError, onEmotionDetected]);
