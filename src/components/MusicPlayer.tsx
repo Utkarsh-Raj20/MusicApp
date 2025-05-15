@@ -5,14 +5,15 @@ import TrackInfo from './TrackInfo';
 import EmotionDetector from './EmotionDetector';
 import EmotionDisplay from './EmotionDisplay';
 import { getRandomTrackForEmotion, getPreviousTrack, getNextTrack } from '../utils/audioUtils';
-import { emotionColors, smoothEmotionTransition } from '../utils/emotionUtils';
+import { emotionColors } from '../utils/emotionUtils';
 import { Camera, CameraOff } from 'lucide-react';
 
 const MusicPlayer: React.FC = () => {
   // State for current track and emotion
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [currentEmotion, setCurrentEmotion] = useState<Emotion>('neutral');
-  const [lastEmotionChangeTime, setLastEmotionChangeTime] = useState<number>(0);
+  const lastEmotionRef = useRef<Emotion>('neutral');
+  const emotionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // State for webcam activation
   const [isWebcamActive, setIsWebcamActive] = useState(true);
@@ -39,32 +40,35 @@ const MusicPlayer: React.FC = () => {
   
   // Handle emotion detection results
   const handleEmotionDetected = (result: EmotionDetectionResult) => {
-    const now = Date.now();
-    const emotionChangeThreshold = 3000; // 3 seconds between emotion changes
-    
-    // Apply smoothing to prevent rapid emotion switching
-    const smoothedEmotion = smoothEmotionTransition(result);
-    
-    if (smoothedEmotion !== currentEmotion && (now - lastEmotionChangeTime) > emotionChangeThreshold) {
-      setCurrentEmotion(smoothedEmotion);
-      setLastEmotionChangeTime(now);
-      
-      // Change track when emotion changes
-      const newTrack = getRandomTrackForEmotion(smoothedEmotion);
-      setCurrentTrack(newTrack);
-      
-      // Auto-play when emotion changes
-      if (audioRef.current) {
-        audioRef.current.play()
-          .then(() => {
-            setPlaybackState(prev => ({ ...prev, isPlaying: false }));
-          })
-          .catch(error => {
-            console.error('Playback error:', error);
-          });
-      }
+    if (emotionTimeoutRef.current) {
+      clearTimeout(emotionTimeoutRef.current);
     }
+
+    emotionTimeoutRef.current = setTimeout(() => {
+      if (result.emotion !== lastEmotionRef.current) {
+        lastEmotionRef.current = result.emotion;
+        setCurrentEmotion(result.emotion);
+        
+        // Only change track if emotion changes
+        const newTrack = getRandomTrackForEmotion(result.emotion);
+        setCurrentTrack(newTrack);
+
+        // Preserve current playback state
+        if (playbackState.isPlaying && audioRef.current) {
+          audioRef.current.play().catch(console.error);
+        }
+      }
+    }, 300); // Wait for 1 second of stable emotion before changing
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (emotionTimeoutRef.current) {
+        clearTimeout(emotionTimeoutRef.current);
+      }
+    };
+  }, []);
   
   // Toggle webcam
   const toggleWebcam = () => {
@@ -142,21 +146,14 @@ const MusicPlayer: React.FC = () => {
     const prevTrack = getPreviousTrack(currentTrack);
     setCurrentTrack(prevTrack);
     
-    // Auto-play when changing tracks
-    setPlaybackState(prev => ({
-      ...prev,
-      isPlaying: true,
-      currentTime: 0
-    }));
-    
-    // Small timeout to ensure track changes before playing
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(error => {
-          console.error('Playback error:', error);
-        });
-      }
-    }, 100);
+    // Maintain current playback state
+    if (playbackState.isPlaying) {
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(console.error);
+        }
+      }, 100);
+    }
   };
   
   const handleNext = () => {
@@ -168,21 +165,14 @@ const MusicPlayer: React.FC = () => {
     
     setCurrentTrack(nextTrack);
     
-    // Auto-play when changing tracks
-    setPlaybackState(prev => ({
-      ...prev,
-      isPlaying: true,
-      currentTime: 0
-    }));
-    
-    // Small timeout to ensure track changes before playing
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(error => {
-          console.error('Playback error:', error);
-        });
-      }
-    }, 100);
+    // Maintain current playback state
+    if (playbackState.isPlaying) {
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(console.error);
+        }
+      }, 100);
+    }
   };
   
   const handleSeek = (time: number) => {
